@@ -85,7 +85,8 @@ public abstract class CmdTreeConsenser extends IncrementalConsenser {
 		}
 		Tree t = getConsensus();
 		double time = 1.0*timer.timeSinceLast()/1000.0;
-
+		timer = null;
+		
 		logln("\n" + list.size() + " trees processed in " + time + " seconds");
 		return t;
 	}
