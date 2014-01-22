@@ -39,6 +39,8 @@ public class BranchLengthForNode extends NumbersForNodes {
 	saveLastResultString(resultString);
 	}
 	/*.................................................................................................................*/
+	/** A very short name for menus.
+	 * @return	The name of the module*/
 	public String getName() {
 		return "Branch Length";
 	}
