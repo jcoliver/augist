@@ -113,7 +113,7 @@ public class TreeBlockCombiner extends TreeBlockSource {
 	/**Assigns weights to trees based on the size of the TreeVector (tree block).  Each tree is assigned a weight of 1/T, where T = the number
 	 * of trees in the TreeVector object.  For example, each tree in a TreeVector of 30 trees has a weight of 1/30.
 	 * 
-	 * Tree weights are attached to each tree as an attachement, and when written to a file, this
+	 * Tree weights are attached to each tree as an attachment, and when written to a file, this
 	 * attachment is used to determine if trees have weight, and if so, what the weight of each tree is.
 	 * Relevant methods in TreeVector include setWriteWeights and getWriteWeights.  The actual writing of 
 	 * weights is done by ManageTrees.*/
@@ -124,16 +124,12 @@ public class TreeBlockCombiner extends TreeBlockSource {
 			if(numInBlock>0){
 				MesquiteDouble weightDouble = new MesquiteDouble();
 				weightDouble.setName("Weight");
-				weightDouble.setValue(1/((double)numInBlock));
-				/*Was attaching weight as a string; new approach attaches weight as a MesquiteDouble
-				MesquiteString weightString = new MesquiteString();
-				weightString.setName("Weight");
-				weightString.setValue("1/"+numInBlock);
-				*/
+				double weight = (1.0/((double)numInBlock)) * 1.0;
+				weightDouble.setValue(weight);
 				for(int nTrees = 0; nTrees < numInBlock; nTrees++){
 					MesquiteTree mTree = (MesquiteTree)treeList.getTree(nTrees);
-					mTree.attach(weightDouble);
-					//mTree.attach(weightString);
+					//mTree.attach(weightDouble);
+					mTree.attachIfUniqueName(weightDouble);
 				}
 			}
 		}
@@ -154,9 +150,7 @@ public class TreeBlockCombiner extends TreeBlockSource {
 		}
 		boolean keepFilling = true;
 		int i = 0;
-//		for(int i = 0; i < numSearches; i++){
 		while(keepFilling && i < numSearches){
-//			logln("==========\tFilling Block " + (i+1) + " of " + numSearches + "\t=========="); 
 			if (progIndicator != null) {
 				if (progIndicator.isAborted()) {
 					progIndicator.goAway();
